@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type = "text/babel">
+    const root = document.querySelector("#root")
+    function tick() {
+      //0부터 9사이의 숫자 랜덤 채번하기-실수형 나오면 버림 처리
+      const number = Math.floor(Math.random()*(10-1)+1)
+      const element = <button>{number}</button>
+      ReactDOM.render(element, root)
+      //ReactDOM.createRoot(root).render(element)
+    }//end of tick
+
+    setInterval(tick, 1000);//1초마다 호출
+  </script>
+</body>
+</html>

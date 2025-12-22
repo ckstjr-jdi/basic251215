@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- React 라이브러 -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <!-- ReactDOM 라이브러리 -->
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <!-- 바벨 : JSX 사용 -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+<body>
+<!--
+1.useState는 서로 독립적이고 무엇이든 담을 수 있다.
+2.값이 바뀌는 것을 바로바로 인지할 수 있다.
+3.컴포넌트 상태는 컴포넌트가 그려지는 주기와 관련이 있다.  
+-->
+  <div id="root"></div> 
+  <script type="text/babel">
+    const root = document.querySelector("#root")
+    const App = () => {
+      const [keyword, setKeyword] = React.useState(() => {
+        console.log('initialize')
+        return window.localStorage.getItem("keyowrd")
+      })
+      React.useEffect(() => {
+        console.log('effect')
+        //keyword에 대응되는 값을 로컬 스토리지에 저장함(브라우저)
+        window.localStorage.setItem("keyword",keyword)
+      })
+      const [result, setRsult] = React.useState('')
+      const [typing, setTyping] = React.useState(false)
+      const handleChange = () => {
+        console.log(event.target.value)
+        setKeyword(event.target.value)
+        setTyping(true)
+
+      }
+      const handleClick = () => {
+        //검색 버튼을 누른 다음에는 변화가 있으면 안됨.
+        setTyping(false)
+        setRsult(`검색 키워드는 ...${keyword}`)
+      }
+      return (
+        <>
+          <input type="text" onChange={handleChange} value={keyword}/>
+          <button type="button" onClick={handleClick}>검색</button>
+          <p>
+            {typing ? `Looking for ${keyword}...` : result}
+          </p>
+        </>
+      )
+    }//end of App
+    ReactDOM.createRoot(root).render(<App />)
+  </script>
+</body>
+</html>

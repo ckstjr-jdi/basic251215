@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const root = document.querySelector("#root")
+    //함수 안에 함수 선언이 가능함
+    const App = () => {
+      const [items, setItems] = React.useState([])
+      const requestOptions = {
+        method: "GET",
+        redirect: "follow"
+      };
+
+      fetch("https://api.hnpwa.com/v0/news/1.json", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          //console.log(result);
+          setItems(result)
+        })
+        .catch((error) => console.error(error));
+      return (
+        <>
+          <h2>해커뉴스 제목</h2>       
+          <ul>
+            {items.map((item, index) => {
+              return <li key={index}>{item.title}</li>
+            })
+
+            }
+          </ul>
+        </>
+      )
+    }
+    ReactDOM.createRoot(root).render(<App />)
+  </script>
+</body>
+</html>

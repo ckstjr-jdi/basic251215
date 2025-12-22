@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToList</title>
+    <!-- React 컴포넌트/상태 관리하는 함수 지원 -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- ReactDom : React컴포넌트를 실제 HTML DOM에 그려주는 역할 -->
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- 바벨 : JSX를 JS로 반환해줌 -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <!-- React그리는 화면이 들어갈 곳 -->
+    <div id="root"></div>
+    <script type="text/babel">
+
+    const root = document.querySelector("#root")
+    //초기 데이터 준비
+    const todos = [
+        {id:1, value: '방청소'}, //todos[0]
+        {id:2, value: '빨래하기'},//todos[1]
+        {id:3, value: '조깅하기'},//todos[2]
+    ]
+    //사용자 정의 태그이다. - 컴포넌트이다.
+    //filter가 배열을 변경하면 상태가 변한다.
+    //객체배열이 변하면 App함수가 새로 만들어짐.
+    const App = () => {
+        //상태로 목록을 관리해 본다. - 상태가 바뀌면 다시 그린다.
+        //items:현재 화면에 보여줄 목록(상태)
+        //화면에 보이는 값은 state관리한다.
+        //state가 바뀌면 React가 화면을 자동으로 다시 그린다.(re-render)
+        //setItems함수로 업데이트 가능함 
+        const [items, setItems] = React.useState(todos)
+        const doneClick = (todo) => {
+            console.log('doneClick');
+            console.log(todo);
+            console.log(items.filter(item => item !== todo));
+            //filter는 조건이 true인 것만 남겨서 새 배열을 만듦(깊은 복사)
+            //item !== todo이면 남기고 같으면 제거함. 여기서 비교는 객체 참조 비교임
+            //배열 안에 있는 객체 todo와 클릭한 객체 todo가 같은 메모리 주소이면 제거됨
+            setItems((items) => items.filter(item => item !== todo))
+        }//end of doneClick
+        return(
+            <>
+                <h2>ToDo List</h2>
+                {items.map((item, index) => (
+                    <div key={item.id}>
+{/* JSX주석 */}                        
+{/* 주의 : 버튼 클릭 시 함수를 실행해야 하므로 익명함수로 감싸서 전달할 것 */}                        
+{/* 만일 onClick={doneClick(item)}로 하면 렌더링 되는 순간 바로 실행됨 */}                        
+{/* 즉 클릭이 아니라 즉시 실행되어 목록에 아이템이 안보임*/}                        
+                        <button onClick={()=>doneClick(item)}>{item.id}{item.value}</button>    
+                    </div>
+                ))}
+            </>
+        )//end of return
+    }//end of App
+    ReactDOM.createRoot(root).render(<App />)
+    </script>
+</body>
+</html>

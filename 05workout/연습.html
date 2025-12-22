@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>운동 추적기</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const root = document.querySelector("#root");
+
+    // 자식 컴포넌트
+    const WorkoutItem = ({ work2 }) => {
+      return (
+        <li>{work2.name}</li>
+      );
+    };
+
+    // 부모 컴포넌트
+    const WorkoutList = () => {
+      const [works, setWorks] = React.useState([
+        { id: 1, name: '벤치프레스', count: 0 },
+        { id: 2, name: '랫풀다운', count: 0 },
+        { id: 3, name: '스쿼트', count: 0 }
+      ]);
+
+      return (
+        <>
+          <h3>오늘할 운동</h3>
+          <ul>
+            {works.map(work1 => (
+              <WorkoutItem key={work1.id} work2={work1} />
+            ))}
+          </ul>
+        </>
+      );
+    };
+
+    ReactDOM.createRoot(root).render(<WorkoutList />);
+  </script>
+</body>
+</html>

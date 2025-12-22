@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- react.development.js 리액트 훅 -->
+    <!-- 
+        CDN - 로컬(PC) 캐시사용 - 속도 느림
+        UNPKG - 네트워크 통해 객체 주입 - 속도 빠름
+    -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- 돔관련 라이브러리 -->
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- 파일이름에 min들어간 파일은 들여쓰기나 줄바꿈이 배제됨 - 파일크기 적다. -->
+    <!-- ES6 -> ES5 -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <style>
+        .title {
+            color: red;
+            font: 40px;
+        }
+    </style>
+    <script type="text/babel">
+    //bable : 최신 자바스크립트 문법을 오래된 브라우저에서도 실행할 수 있도록 변환해주는 변환기 역할
+    //트랜스파일러(bable, typescript)
+    const root = document.querySelector("#root")
+    const msg = "Hello Reach!!!"
+    const 클래스이름 = "title"
+    const element = <h2 className={클래스이름}>{msg}</h2> //JSX문법 -> HTML과 JS섞어쓰기
+    ReactDOM.createRoot(root).render(element)
+    </script>
+</body>
+</html>

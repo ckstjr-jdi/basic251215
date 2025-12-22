@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>운동 추적기</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <style>
+    .item {
+      cursor: pointer;
+    }
+  </style>
+  <script type="text/babel">
+    const root = document.querySelector("#root")
+    //const WorkoutItem = ({work, handleIncrement}) => {
+    const WorkoutItem = (props) => {
+      console.log(props);
+      const work = props.work
+      const handleIncrement = (event) => {
+        console.log('WorkoutItem handleIncrement');
+        props.handleIncrement(work)
+      }
+      return (
+        <li>{work.name}[<span className="item" onClick={handleIncrement}>👍</span>][{work.count}]</li>
+      )
+    }
+    const WorkoutList = () => {
+      const [works,setWorks] = React.useState([
+        {id:1, name:'벤치프레스', count: 0}
+       ,{id:2, name:'랫풀다운', count: 0}
+       ,{id:3, name:'스쿼트', count: 0}
+      ])
+      const handleIncrement = (work) => {
+        //console.log('handleIncrement');
+        console.log(`${work.name}, count: ${work.count}`);
+        const index = works.indexOf(work) //0, 1, 2
+        works[index].count += 1
+        //배열에 대한 참조가 바뀌기 때문에 리렌더링이 발생함.- 사이드이펙트 가능성이 있다.
+        setWorks([...works])
+      }//end of handleIncrement
+      return (
+        <>
+          <h3>오늘할 운동</h3>
+          <ul>
+          {works.map(work => (
+            <WorkoutItem handleIncrement={handleIncrement} key={work.id} work={work} />
+          ))}
+          </ul>
+        </>
+      )
+    }
+    ReactDOM.createRoot(root).render(<WorkoutList />)
+  </script>
+</body>
+</html>

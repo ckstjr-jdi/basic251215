@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- React 라이브러 -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <!-- ReactDOM 라이브러리 -->
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <!-- 바벨 : JSX 사용 -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const root = document.querySelector("#root")
+
+    const App = () => {
+      //변수 선언, 사용자 함수 선언
+      //아래 도서 정보를 카카오 API로 부터 가져온다.
+      //또는 서블릿을 통해서 오라클 서버에서 조회된 결과로 초기화를 해야 한다.
+      const [books, setBooks] = React.useState([])
+      return (
+        <>
+          <h2>도서목록</h2>
+          <ul>
+          {books &&
+            books.map((book,index) => {
+            return (
+              <div key={book.id}>
+                <li>
+                  <h3>책제목 : {book.title}</h3>
+                  <h4>출판사 : {book.publish}</h4>
+                  <h5>추천수 : {book.count}</h5>
+                </li>
+                <hr/>
+              </div>
+            )
+          })}
+          </ul>
+        </>
+      )
+    }//end of App
+    ReactDOM.createRoot(root).render(<App />)
+  </script>
+</body>
+</html>

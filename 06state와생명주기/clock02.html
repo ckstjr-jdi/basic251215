@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>state와생명주기</title>
+  <!-- React 라이브러 -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <!-- ReactDOM 라이브러리 -->
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <!-- 바벨 : JSX 사용 -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const root = document.querySelector("#root")
+    const Clock = () => {
+      //1) state선언하기
+      const [date, setDate] = React.useState(new Date())
+      //2) 생명주기 처리
+      React.useEffect(() => {
+        // componentDidMount역할
+        const timer = setInterval(() => {
+          //state 업데이트 한다.
+          setDate(new Date())
+        },1000) //두번째파라미터 자리에 mili sec단위 시간
+        //componentWillUnmount 역할 (정리 함수)
+        return () => {
+          clearInterval(timer)
+        }
+      },[]) //빈배열은 의존성 배열이다. - 최초 1회만 실행
+      return (
+        <React.Fragment>
+          <h2>현재 시간</h2>
+          <h3>{date.toLocaleTimeString()}</h3>
+        </React.Fragment>
+      )
+    }//end of Clock
+    ReactDOM.createRoot(root).render(<Clock />)
+  </script>
+</body>
+</html>

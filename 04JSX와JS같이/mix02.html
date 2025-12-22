@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    //나는 text가 대문자로 시작하면 h1을
+    //소문자로 시작하면 h3으로 한다.
+    // charAt(), toUpperCase, toLowerCase
+    const root = document.querySelector("#root")
+    const Message = ({text}) => {//()안에 자리를 props라고 함
+      if(text.charAt(0) === text.charAt(0).toUpperCase()){//===값과 타입 모두 비교
+        //여기는 JS영역이다.
+        return <h1>{text}</h1> //여기는 JSx영역이다.
+      }else{
+        return <h3>{text}</h3>
+      }
+    }
+    const element = (
+      <>
+        <Message text="Text"/>
+        <Message text="text"/>
+      </>
+    )
+    ReactDOM.createRoot(root).render(element)
+  </script>
+</body>
+</html>

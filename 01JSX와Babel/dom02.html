@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    //함수선언도 가능하고 호출도 가능함
+    const formatName = (user) => {
+      return user.firstName+" "+user.lastName
+    }
+    //객체 리터럴 사용가능함
+    const user = {
+      firstName : 'scott',
+      lastName : 'tiger'
+    }
+    const element = <h2>Hello, {formatName(user)}</h2>//JSX {} 붙이면 어디든 JSS섞어쓰기 가능
+    const root = ReactDOM.createRoot(document.querySelector("#root"))
+    root.render(element);
+  </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- React 라이브러 -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <!-- ReactDOM 라이브러리 -->
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <!-- 바벨 : JSX 사용 -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const root = document.querySelector("#root")
+    const App = () => {
+      const title = "자바의 정석"
+      const [책제목, 책제목설정] = React.useState("리액트의 정석")
+      let [좋아요, 좋아요설정] = React.useState(0)
+      const increment = () => {
+        좋아요설정(좋아요 + 1)
+        console.log("좋아요 1씩 증가")
+      }
+      const decrement = () => {
+        const count = 좋아요 - 1
+        좋아요 = count < 0 ? 0 :count
+        좋아요설정(좋아요)
+        console.log("좋아요 1씩 감소")
+      }  
+      return (
+        <>
+          {책제목}<br />
+          <span onClick={increment}>👍</span>
+          {좋아요}
+          <span onClick={decrement}>👎</span>
+        </>
+      )
+    }
+    ReactDOM.createRoot(root).render(<App />)
+  </script>
+</body>
+</html>
