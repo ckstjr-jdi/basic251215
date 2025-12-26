@@ -31,6 +31,7 @@
         //데이터 종류 : string, number, [], {}, 3.14, false
         const [depts, setDepts] = React.useState([]);
         console.log("first");
+
         React.useEffect(() => {
           console.log("effect");
           //톰켓 서버에 요청한 결과 받아오기
@@ -43,6 +44,7 @@
             })
             .catch((error) => console.error(error));
         }, [isOk]); //빈 배열이면 최초 한 번 호출이 됨.
+
         const deptListDB = () => {
           console.log("detpListDB");
           //아래 코드가 있을 때와 없을 때를 비교해보기
@@ -63,25 +65,15 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>John</td>
-                  <td>Doe</td>
-                  <td>john@example.com</td>
+              {depts.map((dept,index)=>( 
+                <tr key={dept.deptno}>
+                  <td>{dept.deptno}</td>
+                  <td>{dept.dname}</td>
+                  <td>{dept.loc}</td>
                 </tr>
-                <tr>
-                  <td>Mary</td>
-                  <td>Moe</td>
-                  <td>mary@example.com</td>
-                </tr>
-                <tr>
-                  <td>July</td>
-                  <td>Dooley</td>
-                  <td>july@example.com</td>
-                </tr>
+              ))}
               </tbody>
             </table>
-            {/*{depts.map((dept) => (
-          ))}*/}
           </>
         );
       }; //end of App
