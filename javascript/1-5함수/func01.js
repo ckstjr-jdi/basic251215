@@ -63,7 +63,7 @@
     console.log(`calculator ${result}`)
     return result
   }//end of calculator
-  console.log('여기로온다')
+  console.log('r2는 calculator함수를 빠져나와 여기로온다')
 
   //insert here
   //어떤 함수를 전달하는가에 따라서 계산 결과가 달라진다.
