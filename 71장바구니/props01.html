@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>운동 추적기</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+/*
+  1. props란? - 부모 컴포넌트가 자손 컴포넌트에게 데이터 혹은 함수를 전달할 수 있는 통로이다.  
+  2. 주의 : props로 내리는 건 부모에서 자손으로 만 가능하다
+  자손이 부모에게 전달할 수 없다.
+  자손 컴포넌트에서는 읽기
+  3. 왜 필요한가?
+  - React에서는 HTML처럼 직접 여기저기서 DOM을 조작하지 않는다. 
+  - 데이터(일반변수가 아닌 useState)는 위에서 관리하고 화면은 아래 컴포넌트에서 그린다
+  - 부모가 수집한 데이터를 자손에게 내리는데 props필요하다.
+*/
+    const root = document.querySelector("#root")
+    //부모 :  WorkoutList
+    //자손 :  WorkoutItem
+    const WorkoutList = () => {
+      const [works,setWorks] = React.useState([
+        {id:1, name:'벤치프레스', count: 0}
+       ,{id:2, name:'랫풀다운', count: 0}
+       ,{id:3, name:'스쿼트', count: 0}
+      ])
+      const [work, setWork] = React.useState({
+        id:1, name:'벤치프레스', count: 0
+      })
+      return (
+        <>
+          <h3>오늘할 운동</h3>
+          <WorkoutItem works={works} name={"이름"} age={30}
+            work={work}
+          />
+        </>
+      )
+    }//end of WorkoutList
+    const WorkoutItem = (props) => {
+    //const WorkoutItem = ({works, name, age}) => {  
+      console.log(props);
+      console.log(props.work)
+      console.log(typeof props.works)
+      return (
+        <>
+          {props.name}, {props.age}, {props.work.name}
+        </>
+      )
+    }//end of WorkoutItem
+
+    ReactDOM.createRoot(root).render(<WorkoutList />)
+  </script>
+</body>
+</html>

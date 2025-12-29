@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!--
+    키보드 입력할 때 마다 입력된 문자열을 keyword useState훅(Hook)에서
+    localstorage에 저장되어 있는 keyword값을 읽어와서 반환하도록 처리해보기
+  -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>컴포넌트상태1-2</title>
+  <!-- React 라이브러 -> useState, useEffect -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <!-- ReactDOM 라이브러리 render, createRoot -->
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <!-- 바벨 : JSX 사용 -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const root = document.querySelector("#root")
+    //컴포넌트 함수이다.
+    //함수 안에 함수를 선언할 수 있다.
+    //함수 안에 변수도 선언할 수 있다.
+    // () => {return}
+    // () => ()
+    const App = ()  => {
+      console.log('1')
+      const [keyword, setKeyword] = React.useState(() => {
+        console.log('initialize')
+        return window.localStorage.getItem("keyword")
+      })
+      const [result, setResult] = React.useState('')
+      const [typing, setTyping] = React.useState(false)
+
+
+      const handleClick = () => {
+        console.log('handleClick')
+      }
+      //사용자가 입력한 값 읽기
+      //사용자가 입력을 할 때 - 변화 -> keyword
+      //insert here
+      const handleChange = (event) => {
+        console.log(event.target.value)
+        window.localStorage.setItem("keyword", event.target.value)
+        setKeyword(event.target.value)
+      }
+
+      React.useEffect(() => {
+        console.log('effect')
+      },[])
+      
+      
+      return (
+        <>
+          <input type='text' onChange={handleChange} value={keyword} />
+          <button type='button' onClick={handleClick}>search</button>
+        </>
+      )
+    }
+    ReactDOM.createRoot(root).render(<App />)
+  </script>
+</body>
+</html>

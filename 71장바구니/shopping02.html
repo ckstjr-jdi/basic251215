@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>장바구니</title>
+  <!-- React 라이브러 -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <!-- ReactDOM 라이브러리 -->
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <!-- 바벨 : JSX 사용 -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>  
+  <script src="https://kit.fontawesome.com/3b3af91d34.js" crossorigin="anonymous"></script>  
+</head>
+<body>
+  <div id="root"></div>
+  <style>
+    * {
+        box-sizing: border-box;
+        border: 1px solid red;
+    }
+
+    ul {
+        padding: 0;
+    }
+
+    /* 버튼 전체에 대한 속성 */
+    button {
+        outline: none;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+
+    body {
+        background-color: #ced3df;
+        text-align: center;
+    }
+
+    .list {
+        width: 400px;
+        margin: auto;
+        background-color: #f1f0f7;
+        border-radius: 20px;
+        -webkit-box-shadow: -55px 10px 73px 24px rgba(0,0,0,0.75);
+        -moz-box-shadow: -55px 10px 73px 24px rgba(0,0,0,0.75);
+        box-shadow: -55px 10px 73px 24px rgba(0,0,0,0.75);
+    }
+
+    .header {
+        height: 48px;
+        padding: 8px;
+        font-size: 24px;
+        background: rgb(2,0,36);
+        background: linear-gradient(
+            90deg
+          , rgba(2,0,36,1) 0%
+          , rgba(212,94,196,1) 51%
+          , rgba(0,212,255,1) 100%);
+          border-radius: 20px 20px 0 0;
+          color: white;
+    }
+
+    .items {
+        height: 500px;
+        overflow-y: auto;/*자동스크롤바 생성*/
+    }
+
+    .item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 32px;
+    }
+
+    /* 버튼을 이쁘게 */
+    .item_delete {
+        font-size: 16px;
+        transition: all 300ms ease-in;
+    }
+
+    .item_delete:hover {
+        color: red;
+        transform: scale(1.1);/* 마우스 올라가면 조금 커지게*/
+    }
+
+    .item_divider {
+        width: 90%;
+        height: 2px;
+        background-color: lightgray;
+        margin: auto;
+    }
+
+    .footer {
+        background: rgb(2,0,36);
+        background: linear-gradient(
+            90deg
+          , rgba(2,0,36,1) 0%
+          , rgba(212,94,196,1) 51%
+          , rgba(0,212,255,1) 100%);  
+          border-radius: 0 0 20px 20px;
+    }
+
+    .footer_input {
+        width: 100%;
+        height: 32px;
+        border: none;
+        outline: none;
+        font-size: 24px;
+        padding: 0 16px;
+    }
+
+    .footer_button {
+        width: 48px;
+        height: 48px;
+        font-size: 28px;
+        background-color: black;
+        border-radius: 50%;
+        color: white;
+        transition: transfrom 300ms ease-in;/*스케일이 부드럽게 반영되도록*/
+    }
+
+    .footer_button:hover {
+        transform: scale(1.1);
+    }
+
+    /*
+    CSS Gradient
+
+    https://cssgradient.io/
+    */    
+  </style>
+  <script type="text/babel">
+    const root = document.querySelector("#root")
+    const Cart = () => {
+      //아래 객체배열을 백엔드에서 받아온다. - axios, fetch
+      //3000포트 -> 8000포트 -> 동일 출처 원칙 - CORS
+      const [items, setItems] = React.useState([
+        {id:1, name: '당근', count: 0},
+        {id:2, name: '양파', count: 0},
+        {id:3, name: '오이', count: 0},
+      ])
+      return (
+        <>
+          <h2>여기는 Cart컴포넌트</h2>
+          <ul>
+          {items.map((item) => (
+            <CartItem key={item.id} item={item} />
+          ))}
+          </ul>
+        </>
+      )
+    }
+    const CartItem = ({item}) => {
+      return (
+        <>
+
+          <li>
+            <span className="item_name">{item.name}</span>
+            <button className="item_delete">
+              <i className="fas fa-trash-alt"></i>
+            </button>
+          </li>
+      
+        </>
+      )
+    }
+    ReactDOM.createRoot(root).render(<Cart />)
+  </script>
+</body>
+</html>

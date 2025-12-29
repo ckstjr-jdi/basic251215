@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>운동 추적기</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const root = document.querySelector("#root")
+    //부모 :  WorkoutList
+    //자손 :  WorkoutItem
+    const WorkoutList = () => {
+      const add = (param) => {
+        console.log('add호출'+param)
+      }
+      return (
+        <>
+          <h3>오늘할 운동</h3>
+          <WorkoutItem add={add} />
+        </>
+      )
+    }//end of WorkoutList
+    const WorkoutItem = (props) => {
+    //const WorkoutItem = ({works, name, age}) => {  
+      console.log(props);
+      console.log(props.add)
+      const add = props.add
+      return (
+        <>
+          아이템
+          <button type="button" onClick={()=>add(555)}>
+            더하기  
+          </button>
+        </>
+      )
+    }//end of WorkoutItem
+
+    ReactDOM.createRoot(root).render(<WorkoutList />)
+  </script>
+</body>
+</html>
